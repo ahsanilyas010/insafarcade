@@ -1,0 +1,270 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Design tokens ──────────────────────────────────────────────── */
+:root {
+  --ink:        #101214;
+  --stone:      #F5F3EF;
+  --concrete:   #DDD8D0;
+  --gold:       #C89434;
+  --gold-deep:  #8F6A1E;
+  --slate:      #4A5058;
+}
+
+/* ── Base ───────────────────────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--stone);
+  color: var(--ink);
+}
+
+/* ── Fluid type scale ───────────────────────────────────────────── */
+.text-fluid-hero   { font-size: clamp(40px, 6vw, 88px); }
+.text-fluid-xl     { font-size: clamp(28px, 3.5vw, 64px); }
+.text-fluid-lg     { font-size: clamp(21px, 2.5vw, 40px); }
+.text-fluid-md     { font-size: clamp(17px, 1.8vw, 28px); }
+
+/* ── Tabular numbers ────────────────────────────────────────────── */
+.tabular-nums, .price, table td, table th {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Gold rule ──────────────────────────────────────────────────── */
+.gold-rule {
+  height: 1px;
+  background: var(--gold);
+}
+
+/* ── Section eyebrow ────────────────────────────────────────────── */
+.eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--slate);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 32px;
+  height: 1px;
+  background: var(--gold);
+  flex-shrink: 0;
+}
+
+/* ── Table ──────────────────────────────────────────────────────── */
+.pricing-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.pricing-table th,
+.pricing-table td {
+  padding: 10px 12px;
+  text-align: right;
+  border-bottom: 1px solid var(--concrete);
+  white-space: nowrap;
+}
+
+.pricing-table th {
+  text-align: right;
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--slate);
+  background: var(--stone);
+  border-bottom: 1px solid var(--ink);
+}
+
+.pricing-table th:first-child,
+.pricing-table td:first-child {
+  text-align: left;
+}
+
+.pricing-table tbody tr {
+  transition: background 120ms ease;
+}
+
+.pricing-table tbody tr:hover {
+  background: var(--concrete);
+}
+
+.pricing-table .price-cell {
+  color: var(--ink);
+  font-family: var(--font-fraunces), Georgia, serif;
+}
+
+/* ── Form ───────────────────────────────────────────────────────── */
+.field-wrapper {
+  position: relative;
+}
+
+.field-label {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  font-size: 13px;
+  color: var(--slate);
+  pointer-events: none;
+  transition: top 180ms ease, font-size 180ms ease, color 180ms ease;
+}
+
+.field-input {
+  width: 100%;
+  padding: 22px 14px 8px;
+  border: 1px solid var(--concrete);
+  background: transparent;
+  color: var(--ink);
+  font-size: 15px;
+  font-family: var(--font-inter-tight), system-ui, sans-serif;
+  border-radius: 2px;
+  transition: border-color 180ms ease;
+  outline: none;
+}
+
+.field-input:focus {
+  border-color: var(--gold);
+}
+
+.field-input:focus + .field-label,
+.field-input:not(:placeholder-shown) + .field-label {
+  top: 6px;
+  font-size: 11px;
+  color: var(--gold-deep);
+}
+
+/* ── Buttons ────────────────────────────────────────────────────── */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 28px;
+  background: var(--gold);
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  border-radius: 2px;
+  border: none;
+  cursor: pointer;
+  transition: background 150ms ease;
+  text-decoration: none;
+}
+
+.btn-primary:hover  { background: var(--gold-deep); color: #fff; }
+.btn-primary:active { transform: translateY(1px); }
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  background: transparent;
+  color: var(--stone);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  border-radius: 2px;
+  border: 1px solid rgba(245,243,239,0.4);
+  cursor: pointer;
+  transition: border-color 150ms ease, color 150ms ease;
+  text-decoration: none;
+}
+
+.btn-outline:hover  { border-color: var(--stone); color: var(--stone); }
+.btn-outline:active { transform: translateY(1px); }
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: transparent;
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 2px;
+  border: 1px solid var(--concrete);
+  cursor: pointer;
+  transition: border-color 150ms ease, background 150ms ease;
+  text-decoration: none;
+}
+
+.btn-ghost:hover  { border-color: var(--ink); background: var(--concrete); }
+.btn-ghost:active { transform: translateY(1px); }
+
+/* ── Focus ring ─────────────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+/* ── Image placeholder ──────────────────────────────────────────── */
+.img-placeholder {
+  background: var(--concrete);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--slate);
+  font-family: var(--font-inter-tight), system-ui, sans-serif;
+}
+
+/* ── Overflow scroll container ──────────────────────────────────── */
+.table-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ── Nav link underline wipe ───────────────────────────────────── */
+.nav-link {
+  position: relative;
+  text-decoration: none;
+  color: inherit;
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--gold);
+  transition: width 200ms ease;
+}
+.nav-link:hover::after { width: 100%; }
+
+/* ── Unit card ──────────────────────────────────────────────────── */
+.unit-card {
+  border: 1px solid var(--concrete);
+  border-radius: 2px;
+  padding: 20px;
+  transition: border-color 200ms ease, box-shadow 200ms ease, transform 200ms ease;
+}
+.unit-card:hover {
+  border-color: var(--ink);
+  box-shadow: 0 2px 12px rgba(16,18,20,0.08);
+  transform: translateY(-2px);
+}
+
+/* ── Reduced motion ─────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
