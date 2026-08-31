@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import Link from 'next/link'
 import Image from 'next/image'
 import { site, images } from '@/content'
 
@@ -27,9 +26,9 @@ export default function Nav() {
     <header
       className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
       style={{
-        background:  scrolled ? 'rgba(245,243,239,0.96)' : 'transparent',
-        backdropFilter: scrolled ? 'blur(12px)' : 'none',
-        borderBottom: scrolled ? '1px solid var(--concrete)' : '1px solid transparent',
+        background: scrolled ? 'rgba(12,13,15,0.92)' : 'transparent',
+        backdropFilter: scrolled ? 'blur(16px)' : 'none',
+        borderBottom: scrolled ? '1px solid rgba(200,148,52,0.15)' : '1px solid transparent',
       }}
     >
       <div className="max-w-site mx-auto px-6 lg:px-12 h-16 flex items-center justify-between">
@@ -52,7 +51,7 @@ export default function Nav() {
               key={l.href}
               href={l.href}
               className="nav-link text-f-sm font-medium"
-              style={{ color: scrolled ? 'var(--ink)' : 'rgba(245,243,239,0.9)' }}
+              style={{ color: 'rgba(245,243,239,0.75)' }}
             >
               {l.label}
             </a>
@@ -64,7 +63,7 @@ export default function Nav() {
           <a href="#enquiry" className="btn-primary text-f-sm py-2.5 px-5">
             Enquire
           </a>
-          <a href={site.phoneTel} className="btn-ghost text-f-sm py-2.5 px-5" style={{ color: scrolled ? 'var(--ink)' : 'var(--stone)', borderColor: scrolled ? 'var(--concrete)' : 'rgba(245,243,239,0.4)' }}>
+          <a href={site.phoneTel} className="btn-ghost text-f-sm py-2.5 px-5">
             {site.phone}
           </a>
         </div>
@@ -74,7 +73,7 @@ export default function Nav() {
           className="lg:hidden p-2"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-          style={{ color: scrolled ? 'var(--ink)' : 'var(--stone)' }}
+          style={{ color: 'var(--stone)' }}
         >
           <span className="block w-5 h-0.5 mb-1.5 transition-all" style={{ background: 'currentColor', transform: menuOpen ? 'rotate(45deg) translateY(6px)' : 'none' }} />
           <span className="block w-5 h-0.5 mb-1.5 transition-all" style={{ background: 'currentColor', opacity: menuOpen ? 0 : 1 }} />
@@ -84,19 +83,20 @@ export default function Nav() {
 
       {/* Mobile drawer */}
       {menuOpen && (
-        <div className="lg:hidden border-t" style={{ background: 'var(--stone)', borderColor: 'var(--concrete)' }}>
+        <div className="lg:hidden border-t" style={{ background: 'rgba(12,13,15,0.97)', backdropFilter: 'blur(16px)', borderColor: 'rgba(200,148,52,0.15)' }}>
           <nav className="px-6 py-4 flex flex-col gap-4" aria-label="Mobile navigation">
             {navLinks.map((l) => (
               <a
                 key={l.href}
                 href={l.href}
-                className="text-f-base font-medium text-ink"
+                className="text-f-base font-medium nav-link"
+                style={{ color: 'rgba(245,243,239,0.8)' }}
                 onClick={() => setMenuOpen(false)}
               >
                 {l.label}
               </a>
             ))}
-            <div className="flex gap-3 pt-2 border-t" style={{ borderColor: 'var(--concrete)' }}>
+            <div className="flex gap-3 pt-2 border-t" style={{ borderColor: 'var(--border)' }}>
               <a href="#enquiry" className="btn-primary flex-1 justify-center text-f-sm py-3" onClick={() => setMenuOpen(false)}>
                 Enquire
               </a>

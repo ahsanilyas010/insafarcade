@@ -4,12 +4,19 @@
 
 /* ── Design tokens ──────────────────────────────────────────────── */
 :root {
-  --ink:        #101214;
-  --stone:      #F5F3EF;
-  --concrete:   #DDD8D0;
-  --gold:       #C89434;
-  --gold-deep:  #8F6A1E;
-  --slate:      #4A5058;
+  --bg:          #0C0D0F;
+  --bg-2:        #111316;
+  --bg-3:        #181B20;
+  --ink:         #0C0D0F;
+  --stone:       #F5F3EF;
+  --concrete:    rgba(245,243,239,0.08);
+  --gold:        #C89434;
+  --gold-light:  #E4B866;
+  --gold-deep:   #8F6A1E;
+  --gold-subtle: rgba(200,148,52,0.18);
+  --slate:       rgba(245,243,239,0.5);
+  --border:      rgba(245,243,239,0.07);
+  --border-gold: rgba(200,148,52,0.22);
 }
 
 /* ── Base ───────────────────────────────────────────────────────── */
@@ -20,8 +27,8 @@ html {
 }
 
 body {
-  background-color: var(--stone);
-  color: var(--ink);
+  background-color: var(--bg);
+  color: var(--stone);
 }
 
 /* ── Fluid type scale ───────────────────────────────────────────── */
@@ -38,7 +45,7 @@ body {
 /* ── Gold rule ──────────────────────────────────────────────────── */
 .gold-rule {
   height: 1px;
-  background: var(--gold);
+  background: linear-gradient(to right, var(--gold), rgba(200,148,52,0.3));
 }
 
 /* ── Section eyebrow ────────────────────────────────────────────── */
@@ -47,7 +54,7 @@ body {
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--slate);
+  color: rgba(200,148,52,0.85);
   display: flex;
   align-items: center;
   gap: 12px;
@@ -62,6 +69,13 @@ body {
   flex-shrink: 0;
 }
 
+/* ── Gold separator line ──────────────────────────────────────── */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--gold), transparent);
+  opacity: 0.3;
+}
+
 /* ── Table ──────────────────────────────────────────────────────── */
 .pricing-table {
   width: 100%;
@@ -71,21 +85,22 @@ body {
 
 .pricing-table th,
 .pricing-table td {
-  padding: 10px 12px;
+  padding: 11px 13px;
   text-align: right;
-  border-bottom: 1px solid var(--concrete);
+  border-bottom: 1px solid var(--border);
   white-space: nowrap;
+  color: rgba(245,243,239,0.75);
 }
 
 .pricing-table th {
   text-align: right;
   font-weight: 600;
   font-size: 11px;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--slate);
-  background: var(--stone);
-  border-bottom: 1px solid var(--ink);
+  color: rgba(245,243,239,0.4);
+  background: var(--bg-3);
+  border-bottom: 1px solid var(--border-gold);
 }
 
 .pricing-table th:first-child,
@@ -94,15 +109,15 @@ body {
 }
 
 .pricing-table tbody tr {
-  transition: background 120ms ease;
+  transition: background 150ms ease;
 }
 
 .pricing-table tbody tr:hover {
-  background: var(--concrete);
+  background: rgba(200,148,52,0.06);
 }
 
 .pricing-table .price-cell {
-  color: var(--ink);
+  color: rgba(245,243,239,0.85);
   font-family: var(--font-fraunces), Georgia, serif;
 }
 
@@ -116,7 +131,7 @@ body {
   top: 14px;
   left: 14px;
   font-size: 13px;
-  color: var(--slate);
+  color: rgba(245,243,239,0.35);
   pointer-events: none;
   transition: top 180ms ease, font-size 180ms ease, color 180ms ease;
 }
@@ -124,25 +139,31 @@ body {
 .field-input {
   width: 100%;
   padding: 22px 14px 8px;
-  border: 1px solid var(--concrete);
-  background: transparent;
-  color: var(--ink);
+  border: 1px solid var(--border);
+  background: var(--bg-3);
+  color: var(--stone);
   font-size: 15px;
   font-family: var(--font-inter-tight), system-ui, sans-serif;
   border-radius: 2px;
-  transition: border-color 180ms ease;
+  transition: border-color 180ms ease, background 180ms ease;
   outline: none;
 }
 
 .field-input:focus {
   border-color: var(--gold);
+  background: rgba(200,148,52,0.04);
 }
 
 .field-input:focus + .field-label,
 .field-input:not(:placeholder-shown) + .field-label {
   top: 6px;
   font-size: 11px;
-  color: var(--gold-deep);
+  color: var(--gold);
+}
+
+.field-input option {
+  background: var(--bg-2);
+  color: var(--stone);
 }
 
 /* ── Buttons ────────────────────────────────────────────────────── */
@@ -159,11 +180,14 @@ body {
   border-radius: 2px;
   border: none;
   cursor: pointer;
-  transition: background 150ms ease;
+  transition: background 150ms ease, box-shadow 150ms ease;
   text-decoration: none;
 }
 
-.btn-primary:hover  { background: var(--gold-deep); color: #fff; }
+.btn-primary:hover  {
+  background: var(--gold-light);
+  box-shadow: 0 0 20px rgba(200,148,52,0.35);
+}
 .btn-primary:active { transform: translateY(1px); }
 
 .btn-outline {
@@ -177,13 +201,17 @@ body {
   font-weight: 600;
   letter-spacing: 0.03em;
   border-radius: 2px;
-  border: 1px solid rgba(245,243,239,0.4);
+  border: 1px solid rgba(245,243,239,0.2);
   cursor: pointer;
-  transition: border-color 150ms ease, color 150ms ease;
+  transition: border-color 150ms ease, color 150ms ease, background 150ms ease;
   text-decoration: none;
 }
 
-.btn-outline:hover  { border-color: var(--stone); color: var(--stone); }
+.btn-outline:hover  {
+  border-color: var(--gold);
+  color: var(--gold-light);
+  background: rgba(200,148,52,0.06);
+}
 .btn-outline:active { transform: translateY(1px); }
 
 .btn-ghost {
@@ -192,17 +220,21 @@ body {
   gap: 8px;
   padding: 12px 24px;
   background: transparent;
-  color: var(--ink);
+  color: var(--stone);
   font-size: 14px;
   font-weight: 600;
   border-radius: 2px;
-  border: 1px solid var(--concrete);
+  border: 1px solid var(--border);
   cursor: pointer;
-  transition: border-color 150ms ease, background 150ms ease;
+  transition: border-color 150ms ease, background 150ms ease, color 150ms ease;
   text-decoration: none;
 }
 
-.btn-ghost:hover  { border-color: var(--ink); background: var(--concrete); }
+.btn-ghost:hover  {
+  border-color: var(--gold);
+  color: var(--gold-light);
+  background: rgba(200,148,52,0.06);
+}
 .btn-ghost:active { transform: translateY(1px); }
 
 /* ── Focus ring ─────────────────────────────────────────────────── */
@@ -213,14 +245,30 @@ body {
 
 /* ── Image placeholder ──────────────────────────────────────────── */
 .img-placeholder {
-  background: var(--concrete);
+  background: var(--bg-3);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 11px;
   letter-spacing: 0.08em;
-  color: var(--slate);
+  color: rgba(245,243,239,0.2);
   font-family: var(--font-inter-tight), system-ui, sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+
+.img-placeholder::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 24px,
+      rgba(200,148,52,0.03) 24px,
+      rgba(200,148,52,0.03) 25px
+    );
 }
 
 /* ── Overflow scroll container ──────────────────────────────────── */
@@ -249,15 +297,36 @@ body {
 
 /* ── Unit card ──────────────────────────────────────────────────── */
 .unit-card {
-  border: 1px solid var(--concrete);
+  border: 1px solid var(--border);
   border-radius: 2px;
   padding: 20px;
+  background: var(--bg-2);
   transition: border-color 200ms ease, box-shadow 200ms ease, transform 200ms ease;
 }
 .unit-card:hover {
-  border-color: var(--ink);
-  box-shadow: 0 2px 12px rgba(16,18,20,0.08);
+  border-color: var(--border-gold);
+  box-shadow: 0 4px 24px rgba(200,148,52,0.1);
   transform: translateY(-2px);
+}
+
+/* ── Stat number ───────────────────────────────────────────────── */
+.stat-number {
+  font-variant-numeric: tabular-nums;
+  background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 50%, var(--gold-deep) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Gold glow card ─────────────────────────────────────────────── */
+.gold-card {
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  transition: border-color 250ms ease, box-shadow 250ms ease;
+}
+.gold-card:hover {
+  border-color: var(--border-gold);
+  box-shadow: 0 0 30px rgba(200,148,52,0.08), inset 0 0 30px rgba(200,148,52,0.02);
 }
 
 /* ── Reduced motion ─────────────────────────────────────────────── */

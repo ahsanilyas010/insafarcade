@@ -16,10 +16,10 @@ const quickNav = [
 export default function Footer() {
   return (
     <footer
-      style={{ background: 'var(--ink)', borderTop: '1px solid rgba(221,216,208,0.1)' }}
+      style={{ background: 'var(--bg-2)', borderTop: '1px solid var(--border-gold)' }}
     >
       <div className="max-w-site mx-auto px-6 lg:px-12 py-14 lg:py-16">
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 pb-12" style={{ borderBottom: '1px solid rgba(221,216,208,0.1)' }}>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 pb-12" style={{ borderBottom: '1px solid var(--border)' }}>
           {/* Brand */}
           <div>
             <Image
@@ -30,7 +30,7 @@ export default function Footer() {
               className="h-10 w-auto object-contain mb-5"
               onError={() => {}}
             />
-            <p className="text-f-xs leading-relaxed" style={{ color: 'rgba(245,243,239,0.45)' }}>
+            <p className="text-f-xs leading-relaxed" style={{ color: 'rgba(245,243,239,0.35)' }}>
               {site.developer}<br />
               {site.address}
             </p>
@@ -38,7 +38,7 @@ export default function Footer() {
 
           {/* Quick nav */}
           <div>
-            <p className="text-f-xs font-semibold uppercase tracking-widest mb-5" style={{ color: 'rgba(245,243,239,0.35)', letterSpacing: '0.1em' }}>
+            <p className="text-f-xs font-semibold uppercase tracking-widest mb-5" style={{ color: 'rgba(200,148,52,0.5)', letterSpacing: '0.12em' }}>
               Navigate
             </p>
             <nav aria-label="Footer navigation">
@@ -48,7 +48,7 @@ export default function Footer() {
                     <a
                       href={l.href}
                       className="text-f-sm nav-link"
-                      style={{ color: 'rgba(245,243,239,0.55)' }}
+                      style={{ color: 'rgba(245,243,239,0.45)' }}
                     >
                       {l.label}
                     </a>
@@ -60,7 +60,7 @@ export default function Footer() {
 
           {/* Contact */}
           <div>
-            <p className="text-f-xs font-semibold uppercase tracking-widest mb-5" style={{ color: 'rgba(245,243,239,0.35)', letterSpacing: '0.1em' }}>
+            <p className="text-f-xs font-semibold uppercase tracking-widest mb-5" style={{ color: 'rgba(200,148,52,0.5)', letterSpacing: '0.12em' }}>
               Contact
             </p>
             <a
@@ -75,7 +75,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               className="text-f-sm nav-link"
-              style={{ color: 'rgba(245,243,239,0.55)' }}
+              style={{ color: 'rgba(245,243,239,0.45)' }}
             >
               WhatsApp ↗
             </a>
@@ -84,10 +84,10 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 pt-8">
-          <p className="text-f-xs" style={{ color: 'rgba(245,243,239,0.3)' }}>
+          <p className="text-f-xs" style={{ color: 'rgba(245,243,239,0.2)' }}>
             © 2026 {site.developer}. All rights reserved.
           </p>
-          <p className="text-f-xs italic" style={{ color: 'rgba(245,243,239,0.2)' }}>
+          <p className="text-f-xs italic" style={{ color: 'rgba(245,243,239,0.15)' }}>
             Prices and availability subject to change without notice.
           </p>
         </div>

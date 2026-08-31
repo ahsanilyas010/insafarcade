@@ -10,7 +10,7 @@ function fmt(n: number) {
 }
 
 const fade = {
-  hidden:  { opacity: 0, y: 16 },
+  hidden:  { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0  },
 }
 
@@ -20,7 +20,7 @@ export default function CommercialUnits() {
       id="commercial"
       data-section="commercial"
       className="py-20 lg:py-28"
-      style={{ background: 'var(--stone)', borderTop: '1px solid var(--concrete)' }}
+      style={{ background: 'var(--bg-2)', borderTop: '1px solid var(--border)' }}
     >
       <div className="max-w-site mx-auto px-6 lg:px-12">
         <motion.div
@@ -28,7 +28,7 @@ export default function CommercialUnits() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.55 }}
         >
           <SectionHeader
             eyebrow="1st Floor · Commercial"
@@ -40,7 +40,7 @@ export default function CommercialUnits() {
         {/* Floor plan */}
         <motion.div
           className="mb-12 overflow-hidden"
-          style={{ border: '1px solid var(--concrete)', borderRadius: '2px' }}
+          style={{ border: '1px solid var(--border-gold)', borderRadius: '2px' }}
           variants={fade}
           initial="hidden"
           whileInView="visible"
@@ -65,13 +65,9 @@ export default function CommercialUnits() {
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.5, delay: 0.15 }}
         >
-          <div className="table-scroll">
-            {/* NOTE FOR CLIENT: The possession column was labelled "20%" in the
-                source brochure, but the actual figures are ~14% of the total price.
-                We have printed "On possession" with no percentage. Please confirm
-                the correct label with your sales team before launch. */}
+          <div className="table-scroll" style={{ border: '1px solid var(--border-gold)', borderRadius: '2px' }}>
             <table className="pricing-table" aria-label="Commercial unit pricing">
-              <caption className="text-f-xs text-left mb-3 pb-3" style={{ color: 'var(--slate)', captionSide: 'top' }}>
+              <caption className="text-f-xs text-left mb-3 pb-3" style={{ color: 'var(--slate)', captionSide: 'top', padding: '12px 13px 0' }}>
                 First floor — shops and offices · All figures in PKR
               </caption>
               <thead>
@@ -98,20 +94,20 @@ export default function CommercialUnits() {
                     transition={{ duration: 0.3, delay: Math.min(i * 0.03, 0.4) }}
                   >
                     <td style={{ color: 'var(--gold)', fontWeight: 600, fontFamily: 'var(--font-fraunces)' }}>{u.id.toString().padStart(2, '0')}</td>
-                    <td>{u.type}</td>
+                    <td style={{ color: 'rgba(245,243,239,0.65)' }}>{u.type}</td>
                     <td className="price-cell">{fmt(u.area)}</td>
                     <td className="price-cell">{fmt(u.rate)}</td>
-                    <td className="price-cell" style={{ fontWeight: 600 }}>{fmt(u.price)}</td>
+                    <td className="price-cell" style={{ fontWeight: 600, color: 'var(--stone)' }}>{fmt(u.price)}</td>
                     <td className="price-cell">{fmt(u.booking)}</td>
                     <td className="price-cell">{fmt(u.monthly)}</td>
                     <td className="price-cell">{fmt(u.possession)}</td>
-                    <td className="price-cell" style={{ color: 'var(--gold-deep)', fontWeight: 600 }}>{fmt(u.lumpSum)}</td>
+                    <td className="price-cell" style={{ color: 'var(--gold)', fontWeight: 600 }}>{fmt(u.lumpSum)}</td>
                   </motion.tr>
                 ))}
               </tbody>
             </table>
           </div>
-          <p className="text-f-xs mt-4 italic" style={{ color: 'var(--slate)' }}>
+          <p className="text-f-xs mt-4 italic" style={{ color: 'rgba(245,243,239,0.3)' }}>
             {paymentPlan.note}
           </p>
         </motion.div>
@@ -121,11 +117,11 @@ export default function CommercialUnits() {
           {commercialUnits.map((u) => (
             <div key={u.id} className="unit-card">
               <p className="text-f-xs font-medium" style={{ color: 'var(--slate)' }}>Unit {u.id.toString().padStart(2, '0')} · {u.type}</p>
-              <p className="font-display font-semibold text-f-md mt-1 tabular-nums" style={{ color: 'var(--ink)' }}>
+              <p className="font-display font-semibold text-f-md mt-1 tabular-nums" style={{ color: 'var(--stone)' }}>
                 {(u.price / 10000000).toFixed(2)} Cr
               </p>
               <p className="text-f-xs mt-1 tabular-nums" style={{ color: 'var(--slate)' }}>{u.area} sqft</p>
-              <p className="text-f-xs mt-2 tabular-nums" style={{ color: 'var(--gold-deep)', fontWeight: 600 }}>
+              <p className="text-f-xs mt-2 tabular-nums" style={{ color: 'var(--gold)', fontWeight: 600 }}>
                 PKR {fmt(u.monthly)}/mo
               </p>
             </div>

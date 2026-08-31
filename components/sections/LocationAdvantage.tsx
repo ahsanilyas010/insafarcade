@@ -6,7 +6,7 @@ import ImagePlaceholder from '@/components/ui/ImagePlaceholder'
 import { locationAnchors, site, images } from '@/content'
 
 const fade = {
-  hidden:  { opacity: 0, y: 16 },
+  hidden:  { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0  },
 }
 
@@ -16,7 +16,7 @@ export default function LocationAdvantage() {
       id="location"
       data-section="location"
       className="py-20 lg:py-28"
-      style={{ background: 'var(--stone)' }}
+      style={{ background: 'var(--bg)', borderTop: '1px solid var(--border)' }}
     >
       <div className="max-w-site mx-auto px-6 lg:px-12">
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-start">
@@ -27,7 +27,7 @@ export default function LocationAdvantage() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: '-80px' }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.55 }}
             >
               <SectionHeader
                 eyebrow="Location"
@@ -48,7 +48,7 @@ export default function LocationAdvantage() {
               {site.address}
             </motion.p>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-px" style={{ border: '1px solid var(--concrete)' }}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-px" style={{ border: '1px solid var(--border-gold)' }}>
               {locationAnchors.map((anchor, i) => (
                 <motion.div
                   key={anchor.name}
@@ -57,10 +57,10 @@ export default function LocationAdvantage() {
                   whileInView="visible"
                   viewport={{ once: true, margin: '-80px' }}
                   transition={{ duration: 0.4, delay: 0.05 * i }}
-                  className="px-5 py-4"
-                  style={{ background: 'var(--stone)', borderRight: '1px solid var(--concrete)', borderBottom: '1px solid var(--concrete)' }}
+                  className="px-5 py-4 gold-card"
+                  style={{ borderRight: '1px solid var(--border)', borderBottom: '1px solid var(--border)' }}
                 >
-                  <p className="text-f-sm font-medium" style={{ color: 'var(--ink)' }}>
+                  <p className="text-f-sm font-medium" style={{ color: 'var(--stone)' }}>
                     {anchor.name}
                   </p>
                   {anchor.note && (
@@ -79,10 +79,10 @@ export default function LocationAdvantage() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: '-80px' }}
-            transition={{ duration: 0.5, delay: 0.15 }}
+            transition={{ duration: 0.55, delay: 0.15 }}
             className="sticky top-24"
           >
-            <div className="overflow-hidden" style={{ border: '1px solid var(--concrete)', borderRadius: '2px' }}>
+            <div className="overflow-hidden" style={{ border: '1px solid var(--border-gold)', borderRadius: '2px' }}>
               <ImagePlaceholder
                 src={images.map}
                 alt="Location map showing Insaf Arcade 2 in B-17 MPCHS Islamabad"
