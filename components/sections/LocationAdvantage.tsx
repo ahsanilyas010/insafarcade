@@ -1,9 +1,39 @@
 'use client'
 
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import SectionHeader from '@/components/ui/SectionHeader'
 import ImagePlaceholder from '@/components/ui/ImagePlaceholder'
 import { locationAnchors, site, images } from '@/content'
+
+function BrandLogo({ logo, initials, name }: { logo: string; initials: string; name: string }) {
+  const [failed, setFailed] = useState(false)
+
+  if (!logo || failed) {
+    return (
+      <div
+        className="w-12 h-12 flex items-center justify-center rounded font-display font-bold text-f-sm shrink-0"
+        style={{ background: 'rgba(200,148,52,0.12)', color: 'var(--gold)', border: '1px solid rgba(200,148,52,0.2)' }}
+        aria-label={name}
+      >
+        {initials}
+      </div>
+    )
+  }
+
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src={logo}
+      alt={`${name} logo`}
+      width={48}
+      height={48}
+      className="w-12 h-12 object-contain rounded shrink-0"
+      style={{ background: 'white', padding: '4px' }}
+      onError={() => setFailed(true)}
+    />
+  )
+}
 
 const fade = {
   hidden:  { opacity: 0, y: 20 },
@@ -57,17 +87,20 @@ export default function LocationAdvantage() {
                   whileInView="visible"
                   viewport={{ once: true, margin: '-80px' }}
                   transition={{ duration: 0.4, delay: 0.05 * i }}
-                  className="px-5 py-4 gold-card"
+                  className="px-5 py-4 gold-card flex items-center gap-4"
                   style={{ borderRight: '1px solid var(--border)', borderBottom: '1px solid var(--border)' }}
                 >
-                  <p className="text-f-sm font-medium" style={{ color: 'var(--stone)' }}>
-                    {anchor.name}
-                  </p>
-                  {anchor.note && (
-                    <p className="text-f-xs mt-0.5" style={{ color: 'var(--slate)' }}>
-                      {anchor.note}
+                  <BrandLogo logo={anchor.logo} initials={anchor.initials} name={anchor.name} />
+                  <div>
+                    <p className="text-f-sm font-medium" style={{ color: 'var(--stone)' }}>
+                      {anchor.name}
                     </p>
-                  )}
+                    {anchor.note && (
+                      <p className="text-f-xs mt-0.5" style={{ color: 'var(--slate)' }}>
+                        {anchor.note}
+                      </p>
+                    )}
+                  </div>
                 </motion.div>
               ))}
             </div>
