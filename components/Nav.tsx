@@ -37,9 +37,9 @@ export default function Nav() {
           <Image
             src={images.logo}
             alt={site.developer}
-            width={120}
-            height={40}
-            className="h-9 w-auto object-contain"
+            width={480}
+            height={160}
+            className="h-36 w-auto object-contain"
             onError={() => {}}
           />
         </a>
