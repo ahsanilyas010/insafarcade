@@ -5,7 +5,7 @@ import SectionHeader from '@/components/ui/SectionHeader'
 import { whyInvestPoints } from '@/content'
 
 const fade = {
-  hidden:  { opacity: 0, y: 16 },
+  hidden:  { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0  },
 }
 
@@ -15,7 +15,7 @@ export default function WhyInvest() {
       id="why-invest"
       data-section="why-invest"
       className="py-20 lg:py-28"
-      style={{ background: 'var(--stone)', borderTop: '1px solid var(--concrete)' }}
+      style={{ background: 'var(--bg-2)', borderTop: '1px solid var(--border)' }}
     >
       <div className="max-w-site mx-auto px-6 lg:px-12">
         <motion.div
@@ -23,7 +23,7 @@ export default function WhyInvest() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.55 }}
         >
           <SectionHeader
             eyebrow="Investment case"
@@ -32,7 +32,7 @@ export default function WhyInvest() {
           />
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-px" style={{ border: '1px solid var(--concrete)' }}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-px" style={{ border: '1px solid var(--border-gold)' }}>
           {whyInvestPoints.map((point, i) => (
             <motion.div
               key={point.title}
@@ -40,12 +40,11 @@ export default function WhyInvest() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: '-80px' }}
-              transition={{ duration: 0.4, delay: i * 0.05 }}
-              className="px-8 py-7"
+              transition={{ duration: 0.45, delay: i * 0.06 }}
+              className="px-8 py-7 gold-card"
               style={{
-                background:   'var(--stone)',
-                borderRight:  '1px solid var(--concrete)',
-                borderBottom: '1px solid var(--concrete)',
+                borderRight:  '1px solid var(--border)',
+                borderBottom: '1px solid var(--border)',
               }}
             >
               <div className="flex items-start gap-4">
@@ -56,7 +55,7 @@ export default function WhyInvest() {
                   {(i + 1).toString().padStart(2, '0')}
                 </span>
                 <div>
-                  <p className="font-semibold text-f-sm mb-1" style={{ color: 'var(--ink)' }}>{point.title}</p>
+                  <p className="font-semibold text-f-sm mb-1" style={{ color: 'var(--stone)' }}>{point.title}</p>
                   <p className="text-f-sm leading-relaxed" style={{ color: 'var(--slate)' }}>{point.body}</p>
                 </div>
               </div>

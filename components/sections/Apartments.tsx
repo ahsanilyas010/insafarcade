@@ -10,7 +10,7 @@ function fmt(n: number) {
 }
 
 const fade = {
-  hidden:  { opacity: 0, y: 16 },
+  hidden:  { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0  },
 }
 
@@ -20,7 +20,7 @@ export default function Apartments() {
       id="apartments"
       data-section="apartments"
       className="py-20 lg:py-28"
-      style={{ background: 'var(--stone)', borderTop: '1px solid var(--concrete)' }}
+      style={{ background: 'var(--bg)', borderTop: '1px solid var(--border)' }}
     >
       <div className="max-w-site mx-auto px-6 lg:px-12">
         <motion.div
@@ -28,7 +28,7 @@ export default function Apartments() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.55 }}
         >
           <SectionHeader
             eyebrow="2nd–4th Floor · Residential"
@@ -41,7 +41,7 @@ export default function Apartments() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-14">
           <motion.div
             className="lg:col-span-2 overflow-hidden"
-            style={{ border: '1px solid var(--concrete)', borderRadius: '2px' }}
+            style={{ border: '1px solid var(--border-gold)', borderRadius: '2px' }}
             variants={fade}
             initial="hidden"
             whileInView="visible"
@@ -56,7 +56,7 @@ export default function Apartments() {
               className="w-full h-auto"
               sizes="(max-width: 1024px) 100vw, 66vw"
             />
-            <div className="px-5 py-4" style={{ borderTop: '1px solid var(--concrete)' }}>
+            <div className="px-5 py-4" style={{ borderTop: '1px solid var(--border)' }}>
               <p className="text-f-xs font-medium" style={{ color: 'var(--slate)' }}>Typical floor plan (2nd, 3rd & 4th identical) — 7′-0″ central lobby, lift & stairs at rear</p>
             </div>
           </motion.div>
@@ -69,7 +69,7 @@ export default function Apartments() {
               <motion.div
                 key={plan.src}
                 className="overflow-hidden flex-1"
-                style={{ border: '1px solid var(--concrete)', borderRadius: '2px' }}
+                style={{ border: '1px solid var(--border-gold)', borderRadius: '2px' }}
                 variants={fade}
                 initial="hidden"
                 whileInView="visible"
@@ -84,7 +84,7 @@ export default function Apartments() {
                   className="w-full h-auto"
                   sizes="(max-width: 1024px) 100vw, 33vw"
                 />
-                <div className="px-4 py-3" style={{ borderTop: '1px solid var(--concrete)' }}>
+                <div className="px-4 py-3" style={{ borderTop: '1px solid var(--border)' }}>
                   <p className="text-f-xs font-medium tabular-nums" style={{ color: 'var(--slate)' }}>{plan.label}</p>
                 </div>
               </motion.div>
@@ -100,13 +100,9 @@ export default function Apartments() {
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          <div className="table-scroll">
-            {/* NOTE FOR CLIENT: The possession column was labelled "20%" in the
-                source brochure, but the actual figures are ~14% of the total price.
-                We have printed "On possession" with no percentage. Please confirm
-                the correct label with your sales team before launch. */}
+          <div className="table-scroll" style={{ border: '1px solid var(--border-gold)', borderRadius: '2px' }}>
             <table className="pricing-table" aria-label="Apartment unit pricing">
-              <caption className="text-f-xs text-left mb-3 pb-3" style={{ color: 'var(--slate)', captionSide: 'top' }}>
+              <caption className="text-f-xs text-left mb-3 pb-3" style={{ color: 'var(--slate)', captionSide: 'top', padding: '12px 13px 0' }}>
                 2nd–4th floor — 2-bed apartments · All figures in PKR
               </caption>
               <thead>
@@ -134,21 +130,21 @@ export default function Apartments() {
                     transition={{ duration: 0.3, delay: Math.min(i * 0.03, 0.4) }}
                   >
                     <td style={{ color: 'var(--gold)', fontWeight: 600, fontFamily: 'var(--font-fraunces)' }}>{u.id.toString().padStart(2, '0')}</td>
-                    <td>{u.type}</td>
+                    <td style={{ color: 'rgba(245,243,239,0.65)' }}>{u.type}</td>
                     <td className="price-cell">{fmt(u.areaGross)} sqft</td>
                     <td className="price-cell">{fmt(u.areaNet)} sqft</td>
                     <td className="price-cell">{fmt(u.rate)}</td>
-                    <td className="price-cell" style={{ fontWeight: 600 }}>{fmt(u.price)}</td>
+                    <td className="price-cell" style={{ fontWeight: 600, color: 'var(--stone)' }}>{fmt(u.price)}</td>
                     <td className="price-cell">{fmt(u.booking)}</td>
                     <td className="price-cell">{fmt(u.monthly)}</td>
                     <td className="price-cell">{fmt(u.possession)}</td>
-                    <td className="price-cell" style={{ color: 'var(--gold-deep)', fontWeight: 600 }}>{fmt(u.lumpSum)}</td>
+                    <td className="price-cell" style={{ color: 'var(--gold)', fontWeight: 600 }}>{fmt(u.lumpSum)}</td>
                   </motion.tr>
                 ))}
               </tbody>
             </table>
           </div>
-          <p className="text-f-xs mt-4 italic" style={{ color: 'var(--slate)' }}>
+          <p className="text-f-xs mt-4 italic" style={{ color: 'rgba(245,243,239,0.3)' }}>
             {paymentPlan.note}
           </p>
         </motion.div>
@@ -161,11 +157,11 @@ export default function Apartments() {
           ].map((g) => (
             <div key={g.label} className="unit-card">
               <p className="text-f-xs font-medium" style={{ color: 'var(--slate)' }}>{g.label} · 2 Bed</p>
-              <p className="font-display font-semibold text-f-md mt-1 tabular-nums" style={{ color: 'var(--ink)' }}>
+              <p className="font-display font-semibold text-f-md mt-1 tabular-nums" style={{ color: 'var(--stone)' }}>
                 {(g.price / 10000000).toFixed(3)} Cr
               </p>
               <p className="text-f-xs mt-1 tabular-nums" style={{ color: 'var(--slate)' }}>{g.area} sqft gross</p>
-              <p className="text-f-xs mt-2 tabular-nums" style={{ color: 'var(--gold-deep)', fontWeight: 600 }}>
+              <p className="text-f-xs mt-2 tabular-nums" style={{ color: 'var(--gold)', fontWeight: 600 }}>
                 PKR {fmt(g.monthly)}/mo
               </p>
             </div>

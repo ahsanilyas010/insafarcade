@@ -15,7 +15,7 @@ const sizeOptions = {
 }
 
 const fade = {
-  hidden:  { opacity: 0, y: 16 },
+  hidden:  { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0  },
 }
 
@@ -62,7 +62,7 @@ export default function EnquiryForm() {
       id="enquiry"
       data-section="enquiry"
       className="py-20 lg:py-28"
-      style={{ background: 'var(--stone)', borderTop: '1px solid var(--concrete)' }}
+      style={{ background: 'var(--bg)', borderTop: '1px solid var(--border)' }}
     >
       <div className="max-w-site mx-auto px-6 lg:px-12">
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-start">
@@ -72,7 +72,7 @@ export default function EnquiryForm() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: '-80px' }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.55 }}
           >
             <SectionHeader
               eyebrow="Get in touch"
@@ -81,8 +81,8 @@ export default function EnquiryForm() {
             />
 
             {state === 'success' ? (
-              <div className="p-6" style={{ background: 'var(--concrete)', borderRadius: '2px' }}>
-                <p className="font-semibold text-f-base" style={{ color: 'var(--ink)' }}>Enquiry received</p>
+              <div className="p-6" style={{ background: 'rgba(200,148,52,0.08)', border: '1px solid var(--border-gold)', borderRadius: '2px' }}>
+                <p className="font-semibold text-f-base" style={{ color: 'var(--gold-light)' }}>Enquiry received</p>
                 <p className="text-f-sm mt-2" style={{ color: 'var(--slate)' }}>Thank you. Our team will be in touch shortly.</p>
               </div>
             ) : (
@@ -99,7 +99,7 @@ export default function EnquiryForm() {
                     aria-invalid={!!errors.name}
                   />
                   <label htmlFor="name" className="field-label">Full name *</label>
-                  {errors.name && <p id="name-error" role="alert" className="text-f-xs mt-1" style={{ color: '#c0392b' }}>{errors.name}</p>}
+                  {errors.name && <p id="name-error" role="alert" className="text-f-xs mt-1" style={{ color: '#e05c4f' }}>{errors.name}</p>}
                 </div>
 
                 {/* Phone */}
@@ -115,7 +115,7 @@ export default function EnquiryForm() {
                     aria-invalid={!!errors.phone}
                   />
                   <label htmlFor="phone" className="field-label">Phone number *</label>
-                  {errors.phone && <p id="phone-error" role="alert" className="text-f-xs mt-1" style={{ color: '#c0392b' }}>{errors.phone}</p>}
+                  {errors.phone && <p id="phone-error" role="alert" className="text-f-xs mt-1" style={{ color: '#e05c4f' }}>{errors.phone}</p>}
                 </div>
 
                 {/* Email */}
@@ -130,7 +130,7 @@ export default function EnquiryForm() {
                     aria-invalid={!!errors.email}
                   />
                   <label htmlFor="email" className="field-label">Email address *</label>
-                  {errors.email && <p id="email-error" role="alert" className="text-f-xs mt-1" style={{ color: '#c0392b' }}>{errors.email}</p>}
+                  {errors.email && <p id="email-error" role="alert" className="text-f-xs mt-1" style={{ color: '#e05c4f' }}>{errors.email}</p>}
                 </div>
 
                 {/* Interest */}
@@ -179,7 +179,7 @@ export default function EnquiryForm() {
                 </div>
 
                 {state === 'error' && (
-                  <p role="alert" className="text-f-xs" style={{ color: '#c0392b' }}>
+                  <p role="alert" className="text-f-xs" style={{ color: '#e05c4f' }}>
                     Something went wrong. Please try again or call us directly.
                   </p>
                 )}
@@ -201,31 +201,31 @@ export default function EnquiryForm() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: '-80px' }}
-            transition={{ duration: 0.5, delay: 0.15 }}
+            transition={{ duration: 0.55, delay: 0.15 }}
             className="space-y-8 pt-2 lg:pt-20"
           >
             <div>
               <p className="eyebrow mb-4">Sales office</p>
-              <p className="text-f-base font-medium" style={{ color: 'var(--ink)' }}>{site.developer}</p>
+              <p className="text-f-base font-medium" style={{ color: 'var(--stone)' }}>{site.developer}</p>
               <p className="text-f-sm mt-2" style={{ color: 'var(--slate)' }}>{site.address}</p>
             </div>
 
-            <div style={{ borderTop: '1px solid var(--concrete)', paddingTop: '24px' }}>
+            <div style={{ borderTop: '1px solid var(--border)', paddingTop: '24px' }}>
               <p className="eyebrow mb-4">Contact</p>
-              <a href={site.phoneTel} className="block text-f-md font-display font-semibold mb-2" style={{ color: 'var(--ink)', textDecoration: 'none' }}>
+              <a href={site.phoneTel} className="block text-f-md font-display font-semibold mb-2" style={{ color: 'var(--stone)', textDecoration: 'none' }}>
                 {site.phone}
               </a>
               <a
                 href={site.whatsapp}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-ghost inline-flex mt-3"
+                className="btn-outline inline-flex mt-3"
               >
                 WhatsApp us
               </a>
             </div>
 
-            <div style={{ borderTop: '1px solid var(--concrete)', paddingTop: '24px' }}>
+            <div style={{ borderTop: '1px solid var(--border)', paddingTop: '24px' }}>
               <p className="eyebrow mb-4">Hours</p>
               <p className="text-f-sm" style={{ color: 'var(--slate)' }}>Mon–Sat, 9:00 AM – 7:00 PM</p>
               <p className="text-f-sm" style={{ color: 'var(--slate)' }}>Sunday, 11:00 AM – 5:00 PM</p>
