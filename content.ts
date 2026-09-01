@@ -37,15 +37,17 @@ export const building = {
 }
 
 // ─── Location anchors ─────────────────────────────────────────────────────────
+// logo: Clearbit CDN URL — loaded client-side by the browser.
+// initials: shown if the logo fails to load.
 export const locationAnchors = [
-  { name: 'D. Watson Pharmacy',            note: 'Two branches nearby' },
-  { name: 'Broadway Pizza',                note: 'Active F&B footfall' },
-  { name: 'Pizza Montana',                 note: '' },
-  { name: 'Pasta la Vita',                 note: '' },
-  { name: 'Karachi Al-Noorani Biryani & Pulao', note: '' },
-  { name: 'Al Baraka Bank',                note: 'Financial services' },
-  { name: 'Multi Club Islamabad',          note: 'Directly adjacent' },
-  { name: 'Jamia Masjid Abu Bakar',        note: '' },
+  { name: 'D. Watson Pharmacy',            note: 'Two branches nearby',   logo: 'https://logo.clearbit.com/dwatson.com.pk',        initials: 'DW' },
+  { name: 'Broadway Pizza',                note: 'Active F&B footfall',   logo: 'https://logo.clearbit.com/broadwaypizza.com.pk',  initials: 'BP' },
+  { name: 'Pizza Montana',                 note: '',                       logo: 'https://logo.clearbit.com/pizzamontana.pk',       initials: 'PM' },
+  { name: 'Pasta la Vita',                 note: '',                       logo: '',                                                initials: 'PV' },
+  { name: 'Karachi Al-Noorani Biryani & Pulao', note: '',                 logo: '',                                                initials: 'KA' },
+  { name: 'Al Baraka Bank',                note: 'Financial services',    logo: 'https://logo.clearbit.com/albaraka.com.pk',       initials: 'AB' },
+  { name: 'Multi Club Islamabad',          note: 'Directly adjacent',     logo: 'https://logo.clearbit.com/multiclub.com.pk',      initials: 'MC' },
+  { name: 'Jamia Masjid Abu Bakar',        note: '',                       logo: '',                                                initials: 'JM' },
 ]
 
 // ─── Commercial units (1st floor) ────────────────────────────────────────────
