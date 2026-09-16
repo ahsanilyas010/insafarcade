@@ -37,59 +37,62 @@ export default function Apartments() {
           />
         </motion.div>
 
-        {/* Floor plan + 3D layouts */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-14">
-          <motion.div
-            className="lg:col-span-2 overflow-hidden"
-            style={{ border: '1px solid var(--border-gold)', borderRadius: '2px' }}
-            variants={fade}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: '-80px' }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-          >
-            <ImagePlaceholder
-              src={images.planApartments}
-              alt="Residential floor plan showing apartments 01–04 with 7 ft central lobby and lift/stair core"
-              width={900}
-              height={560}
-              className="w-full h-auto"
-              sizes="(max-width: 1024px) 100vw, 66vw"
-            />
-            <div className="px-5 py-4" style={{ borderTop: '1px solid var(--border)' }}>
-              <p className="text-f-xs font-medium" style={{ color: 'var(--slate)' }}>Typical floor plan (2nd, 3rd & 4th identical) — 7′-0″ central lobby, lift & stairs at rear</p>
-            </div>
-          </motion.div>
-
-          <div className="flex flex-col gap-4">
-            {([
-              { src: images.plan3d750, alt: '750 sqft 3D apartment layout — Flats 01 & 02', label: '750 sqft gross · 647 sqft net' },
-              { src: images.plan3d780, alt: '780 sqft 3D apartment layout — Flats 03 & 04', label: '780 sqft gross · 678 sqft net' },
-            ] as const).map((plan) => (
-              <motion.div
-                key={plan.src}
-                className="overflow-hidden flex-1"
-                style={{ border: '1px solid var(--border-gold)', borderRadius: '2px' }}
-                variants={fade}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: '-80px' }}
-                transition={{ duration: 0.5, delay: 0.15 }}
-              >
-                <ImagePlaceholder
-                  src={plan.src}
-                  alt={plan.alt}
-                  width={420}
-                  height={300}
-                  className="w-full h-auto"
-                  sizes="(max-width: 1024px) 100vw, 33vw"
-                />
-                <div className="px-4 py-3" style={{ borderTop: '1px solid var(--border)' }}>
-                  <p className="text-f-xs font-medium tabular-nums" style={{ color: 'var(--slate)' }}>{plan.label}</p>
-                </div>
-              </motion.div>
-            ))}
+        {/* 2D floor plan */}
+        <motion.div
+          className="mb-6 overflow-hidden"
+          style={{ border: '1px solid var(--border-gold)', borderRadius: '2px' }}
+          variants={fade}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+        >
+          <ImagePlaceholder
+            src={images.planApartments}
+            alt="Residential floor plan showing apartments 01–04 with 7 ft central lobby and lift/stair core"
+            width={1200}
+            height={560}
+            className="w-full h-auto"
+            sizes="100vw"
+          />
+          <div className="px-5 py-4" style={{ borderTop: '1px solid var(--border)' }}>
+            <p className="text-f-xs font-medium" style={{ color: 'var(--slate)' }}>Typical floor plan (2nd, 3rd & 4th identical) — 7′-0″ central lobby, lift & stairs at rear</p>
           </div>
+        </motion.div>
+
+        {/* 3D floor plan renders */}
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 mb-14">
+          {([
+            { src: images.plan3d750,    alt: '750 sqft apartment — 3D top view',      label: '750 sqft gross · 647 sqft net'  },
+            { src: images.plan3d750Iso, alt: '750 sqft apartment — isometric render',  label: '750 sqft · isometric'           },
+            { src: images.plan3d780,    alt: '780 sqft apartment — 3D top view',      label: '780 sqft gross · 678 sqft net'  },
+            { src: images.plan3d780Iso, alt: '780 sqft apartment — isometric render',  label: '780 sqft · isometric'           },
+            { src: images.plan3dAlt1,   alt: '3D apartment interior view 1',           label: '3D interior view A'             },
+            { src: images.plan3dAlt2,   alt: '3D apartment interior view 2',           label: '3D interior view B'             },
+          ] as const).map((plan, i) => (
+            <motion.div
+              key={plan.src}
+              className="overflow-hidden"
+              style={{ border: '1px solid var(--border-gold)', borderRadius: '2px' }}
+              variants={fade}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: '-80px' }}
+              transition={{ duration: 0.5, delay: 0.15 + i * 0.07 }}
+            >
+              <ImagePlaceholder
+                src={plan.src}
+                alt={plan.alt}
+                width={560}
+                height={400}
+                className="w-full h-auto"
+                sizes="(max-width: 768px) 50vw, 33vw"
+              />
+              <div className="px-4 py-3" style={{ borderTop: '1px solid var(--border)' }}>
+                <p className="text-f-xs font-medium tabular-nums" style={{ color: 'var(--slate)' }}>{plan.label}</p>
+              </div>
+            </motion.div>
+          ))}
         </div>
 
         {/* Pricing table */}

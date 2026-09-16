@@ -2,6 +2,8 @@
 
 import { motion } from 'framer-motion'
 import SectionHeader from '@/components/ui/SectionHeader'
+import ImagePlaceholder from '@/components/ui/ImagePlaceholder'
+import { images } from '@/content'
 
 const facts = [
   { label: '4',         sub: 'Floors'                       },
@@ -91,6 +93,48 @@ export default function BuildingGlance() {
             </motion.div>
           ))}
         </div>
+
+        {/* Building renders gallery */}
+        <motion.div
+          className="mt-10"
+          variants={fade}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.55, delay: 0.3 }}
+        >
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
+            {[
+              { src: images.buildingFrontDay, alt: 'Insaf Arcade 2 — daytime front elevation render', label: 'Front elevation' },
+              { src: images.buildingAngle,    alt: 'Insaf Arcade 2 — angled daytime render',           label: 'East angle'      },
+              { src: images.buildingAngle2,   alt: 'Insaf Arcade 2 — alternate angled render',          label: 'West angle'      },
+              { src: images.hero,             alt: 'Insaf Arcade 2 — illuminated night render',          label: 'Night facade'    },
+            ].map((img, i) => (
+              <motion.div
+                key={img.src}
+                className="overflow-hidden"
+                style={{ border: '1px solid var(--border-gold)', borderRadius: '2px' }}
+                variants={{ hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0 } }}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: '-80px' }}
+                transition={{ duration: 0.45, delay: 0.35 + i * 0.08 }}
+              >
+                <ImagePlaceholder
+                  src={img.src}
+                  alt={img.alt}
+                  width={560}
+                  height={380}
+                  className="w-full h-auto"
+                  sizes="(max-width: 768px) 50vw, 25vw"
+                />
+                <div className="px-4 py-3" style={{ borderTop: '1px solid var(--border)' }}>
+                  <p className="text-f-xs font-medium" style={{ color: 'var(--slate)' }}>{img.label}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
       </div>
     </section>
   )

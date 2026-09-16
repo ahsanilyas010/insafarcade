@@ -145,14 +145,24 @@ export const paymentPlan = {
   note: 'Prices and availability subject to change. Confirm current rates and unit availability with the sales office.',
 }
 
-// ─── Floor plan images ────────────────────────────────────────────────────────
+// ─── Images ───────────────────────────────────────────────────────────────────
 export const images = {
   hero:            '/images/hero-building.jpg',
   buildingAngle:   '/images/building-angle.jpg',
+  buildingAngle2:  '/images/building-angle-2.jpg',
+  buildingFrontDay:'/images/building-front-day.jpg',
+  buildingRender1: '/images/building-render-1.jpg',
+  buildingRender2: '/images/building-render-2.jpg',
+  buildingRender3: '/images/building-render-3.jpg',
+  buildingRender4: '/images/building-render-4.jpg',
   planCommercial:  '/images/plan-commercial-first-floor.jpg',
   planApartments:  '/images/plan-apartments.jpg',
   plan3d750:       '/images/plan-3d-750.jpg',
+  plan3d750Iso:    '/images/plan-3d-750-iso.jpg',
   plan3d780:       '/images/plan-3d-780.jpg',
+  plan3d780Iso:    '/images/plan-3d-780-iso.jpg',
+  plan3dAlt1:      '/images/plan-3d-alt1.jpg',
+  plan3dAlt2:      '/images/plan-3d-alt2.jpg',
   logo:            '/images/logo-insaf-arcadia.png',
   map:             '/images/map-location.jpg',
 }
