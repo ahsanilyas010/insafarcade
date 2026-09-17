@@ -3,8 +3,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import SectionHeader from '@/components/ui/SectionHeader'
-import ImagePlaceholder from '@/components/ui/ImagePlaceholder'
-import { locationAnchors, site, images } from '@/content'
+import { locationAnchors, site } from '@/content'
 
 function BrandLogo({ logo, initials, name }: { logo: string; initials: string; name: string }) {
   const [failed, setFailed] = useState(false)
@@ -106,7 +105,7 @@ export default function LocationAdvantage() {
             </div>
           </div>
 
-          {/* Right: map graphic */}
+          {/* Right: embedded Google Map */}
           <motion.div
             variants={fade}
             initial="hidden"
@@ -115,14 +114,19 @@ export default function LocationAdvantage() {
             transition={{ duration: 0.55, delay: 0.15 }}
             className="sticky top-24"
           >
-            <div className="overflow-hidden" style={{ border: '1px solid var(--border-gold)', borderRadius: '2px' }}>
-              <ImagePlaceholder
-                src={images.map}
-                alt="Location map showing Insaf Arcade 2 in B-17 MPCHS Islamabad"
-                width={640}
-                height={480}
-                className="w-full h-auto object-cover"
-                sizes="(max-width: 1024px) 100vw, 50vw"
+            <div
+              className="overflow-hidden"
+              style={{ border: '1px solid var(--border-gold)', borderRadius: '2px', position: 'relative' }}
+            >
+              <iframe
+                title="Insaf Arcade 2 location — B-17 MPCHS Islamabad"
+                src="https://maps.google.com/maps?width=100%25&height=480&hl=en&q=B-17+MPCHS+Islamabad+Pakistan&t=&z=15&ie=UTF8&iwloc=B&output=embed"
+                width="100%"
+                height="420"
+                style={{ border: 0, display: 'block', filter: 'invert(90%) hue-rotate(180deg) saturate(0.6) brightness(0.85)' }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
               />
             </div>
             <div className="mt-4 flex items-start gap-3 px-1">

@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import SectionHeader from '@/components/ui/SectionHeader'
 import { commercialUnits, apartmentUnits, paymentPlan } from '@/content'
+import { fadeUp, staggerContainer, viewport, ease } from '@/lib/animation'
 
 type UnitOption = {
   id: string
@@ -40,11 +41,6 @@ function fmt(n: number) {
   return n.toLocaleString('en-PK')
 }
 
-const fade = {
-  hidden:  { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0  },
-}
-
 export default function PaymentPlan() {
   const [selectedId, setSelectedId] = useState(allUnits[0].id)
   const [mode, setMode] = useState<'installment' | 'lumpsum'>('installment')
@@ -74,11 +70,11 @@ export default function PaymentPlan() {
     >
       <div className="max-w-site mx-auto px-6 lg:px-12">
         <motion.div
-          variants={fade}
+          variants={fadeUp}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.55 }}
+          viewport={viewport}
+          transition={{ duration: 0.6, ease }}
         >
           <SectionHeader
             eyebrow="Payment plan"
@@ -91,36 +87,38 @@ export default function PaymentPlan() {
         <motion.div
           className="grid grid-cols-1 sm:grid-cols-3 gap-px mb-14"
           style={{ border: '1px solid var(--border-gold)' }}
-          variants={fade}
+          variants={staggerContainer(0.1, 0.1)}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.5, delay: 0.1 }}
+          viewport={viewport}
         >
           {[
             { step: '01', title: '30% booking',             desc: 'Secure your unit with a booking amount of 30% of the total price.' },
             { step: '02', title: '30 monthly installments', desc: 'Pay the balance in equal monthly installments over 30 months.' },
             { step: '03', title: 'Possession payment',      desc: 'Pay the final balance on handover. Or choose lump-sum for 10% off.' },
           ].map((s) => (
-            <div
+            <motion.div
               key={s.step}
-              className="px-6 py-8 gold-card"
+              variants={fadeUp}
+              transition={{ duration: 0.5, ease }}
+              whileHover={{ background: 'rgba(200,148,52,0.06)', transition: { duration: 0.2 } }}
+              className="px-6 py-8 gold-card cursor-default"
               style={{ borderRight: '1px solid var(--border)' }}
             >
               <p className="font-display font-semibold text-f-lg tabular-nums" style={{ color: 'var(--gold)' }}>{s.step}</p>
               <p className="text-f-sm font-semibold mt-3 mb-2" style={{ color: 'var(--stone)' }}>{s.title}</p>
               <p className="text-f-sm" style={{ color: 'var(--slate)' }}>{s.desc}</p>
-            </div>
+            </motion.div>
           ))}
         </motion.div>
 
         {/* Interactive calculator */}
         <motion.div
-          variants={fade}
+          variants={fadeUp}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.5, delay: 0.2 }}
+          viewport={viewport}
+          transition={{ duration: 0.5, delay: 0.2, ease }}
           className="max-w-2xl"
         >
           <p className="eyebrow mb-6">Payment calculator</p>
@@ -178,16 +176,19 @@ export default function PaymentPlan() {
           <AnimatePresence mode="wait">
             <motion.div
               key={`${selectedId}-${mode}`}
-              initial={{ opacity: 0, y: 8 }}
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.2 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.22, ease }}
             >
               {rows.map((row, i) => (
-                <div
+                <motion.div
                   key={row.label}
                   className="flex justify-between items-baseline py-4"
                   style={{ borderBottom: '1px solid var(--border)' }}
+                  initial={{ opacity: 0, x: -8 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.25, delay: i * 0.04 }}
                 >
                   <span className="text-f-sm" style={{ color: 'var(--slate)' }}>{row.label}</span>
                   <span
@@ -196,7 +197,7 @@ export default function PaymentPlan() {
                   >
                     {(row as { isBare?: boolean }).isBare ? row.value : `PKR ${fmt(row.value as number)}`}
                   </span>
-                </div>
+                </motion.div>
               ))}
             </motion.div>
           </AnimatePresence>

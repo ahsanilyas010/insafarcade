@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import SectionHeader from '@/components/ui/SectionHeader'
 import ImagePlaceholder from '@/components/ui/ImagePlaceholder'
+import ApartmentFloorPlan from '@/components/ui/ApartmentFloorPlan'
 import { apartmentUnits, paymentPlan, images } from '@/content'
 
 function fmt(n: number) {
@@ -38,27 +39,9 @@ export default function Apartments() {
         </motion.div>
 
         {/* 2D floor plan */}
-        <motion.div
-          className="mb-6 overflow-hidden"
-          style={{ border: '1px solid var(--border-gold)', borderRadius: '2px' }}
-          variants={fade}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-        >
-          <ImagePlaceholder
-            src={images.planApartments}
-            alt="Residential floor plan showing apartments 01–04 with 7 ft central lobby and lift/stair core"
-            width={1200}
-            height={560}
-            className="w-full h-auto"
-            sizes="100vw"
-          />
-          <div className="px-5 py-4" style={{ borderTop: '1px solid var(--border)' }}>
-            <p className="text-f-xs font-medium" style={{ color: 'var(--slate)' }}>Typical floor plan (2nd, 3rd & 4th identical) — 7′-0″ central lobby, lift & stairs at rear</p>
-          </div>
-        </motion.div>
+        <div className="mb-6 overflow-hidden" style={{ border: '1px solid var(--border-gold)', borderRadius: '2px' }}>
+          <ApartmentFloorPlan />
+        </div>
 
         {/* 3D floor plan renders */}
         <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 mb-14">
