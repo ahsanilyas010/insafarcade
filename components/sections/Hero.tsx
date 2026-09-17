@@ -4,8 +4,18 @@ import { useRef } from 'react'
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
 import Image from 'next/image'
 import { site, heroStats, images } from '@/content'
+import { useCountUp } from '@/lib/useCountUp'
+import { ease } from '@/lib/animation'
 
-const ease = [0.16, 1, 0.3, 1] as const
+function StatValue({ raw }: { raw: string }) {
+  const num = parseInt(raw.replace(/,/g, ''), 10)
+  const { value, ref } = useCountUp(isNaN(num) ? 0 : num, 1.5)
+
+  if (isNaN(num)) return <>{raw}</>
+
+  const formatted = value.toLocaleString('en-PK')
+  return <span ref={ref as React.RefObject<HTMLSpanElement>}>{formatted}</span>
+}
 
 export default function Hero() {
   const prefersReduced = useReducedMotion()
@@ -34,7 +44,6 @@ export default function Hero() {
           animate={{ scale: 1 }}
           transition={{ duration: 1.6, ease }}
         >
-          {/* Luxury dark placeholder */}
           <div
             className="absolute inset-0"
             style={{
@@ -43,7 +52,6 @@ export default function Hero() {
             }}
             aria-hidden="true"
           />
-          {/* Gold diagonal pattern */}
           <div
             className="absolute inset-0"
             style={{
@@ -162,7 +170,7 @@ export default function Hero() {
             </a>
           </motion.div>
 
-          {/* Anchor stats */}
+          {/* Anchor stats — counting numbers */}
           <div className="grid grid-cols-3 gap-px" style={{ borderTop: '1px solid rgba(200,148,52,0.2)' }}>
             {heroStats.map((stat, i) => (
               <motion.div
@@ -176,7 +184,7 @@ export default function Hero() {
                   className="font-display font-semibold tabular-nums stat-number"
                   style={{ fontSize: 'clamp(22px, 3vw, 40px)', lineHeight: 1.1 }}
                 >
-                  {stat.value}
+                  <StatValue raw={stat.value} />
                 </p>
                 <p className="text-f-xs font-medium mt-0.5" style={{ color: 'rgba(200,148,52,0.65)' }}>
                   {stat.unit}
