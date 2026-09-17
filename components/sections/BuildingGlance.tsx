@@ -5,15 +5,22 @@ import SectionHeader from '@/components/ui/SectionHeader'
 import ImagePlaceholder from '@/components/ui/ImagePlaceholder'
 import { images } from '@/content'
 import { fadeUp, scaleReveal, staggerContainer, viewport, ease } from '@/lib/animation'
+import { useCountUp } from '@/lib/useCountUp'
 
 const facts = [
-  { label: '4',         sub: 'Floors'                       },
-  { label: '10',        sub: 'Commercial units (1st floor)' },
-  { label: '12',        sub: 'Apartments (2nd–4th floors)'  },
-  { label: 'Lift',      sub: 'Dedicated passenger lift'     },
-  { label: 'Parking',   sub: 'Dedicated commercial area'    },
-  { label: 'Multi Club',sub: 'Directly adjacent'            },
+  { label: '4',         num: 4,    sub: 'Floors'                       },
+  { label: '10',        num: 10,   sub: 'Commercial units (1st floor)' },
+  { label: '12',        num: 12,   sub: 'Apartments (2nd–4th floors)'  },
+  { label: 'Lift',      num: null, sub: 'Dedicated passenger lift'     },
+  { label: 'Parking',   num: null, sub: 'Dedicated commercial area'    },
+  { label: 'Multi Club',num: null, sub: 'Directly adjacent'            },
 ]
+
+function CountFact({ num, label }: { num: number | null; label: string }) {
+  const { value, ref } = useCountUp(num ?? 0, 1.2)
+  if (num === null) return <>{label}</>
+  return <span ref={ref as React.RefObject<HTMLSpanElement>}>{value}</span>
+}
 
 export default function BuildingGlance() {
   return (
@@ -24,19 +31,11 @@ export default function BuildingGlance() {
       style={{ background: 'var(--bg-2)', borderTop: '1px solid var(--border)' }}
     >
       <div className="max-w-site mx-auto px-6 lg:px-12">
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={viewport}
-          transition={{ duration: 0.6, ease }}
-        >
-          <SectionHeader
-            eyebrow="Overview"
-            headline="The building at a glance"
-            sub="Mixed-use development across four floors — ground parking, first-floor commercial, residential above."
-          />
-        </motion.div>
+        <SectionHeader
+          eyebrow="Overview"
+          headline="The building at a glance"
+          sub="Mixed-use development across four floors — ground parking, first-floor commercial, residential above."
+        />
 
         {/* Stats grid with stagger */}
         <motion.div
@@ -60,7 +59,7 @@ export default function BuildingGlance() {
                 className="font-display font-semibold text-fluid-lg tabular-nums stat-number"
                 style={{ lineHeight: 1 }}
               >
-                {f.label}
+                <CountFact num={f.num} label={f.label} />
               </p>
               <p className="text-f-xs mt-2 leading-snug" style={{ color: 'var(--slate)' }}>
                 {f.sub}

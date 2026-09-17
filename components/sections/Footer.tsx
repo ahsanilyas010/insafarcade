@@ -1,7 +1,9 @@
 'use client'
 
 import Image from 'next/image'
+import { motion } from 'framer-motion'
 import { site, images } from '@/content'
+import { fadeUp, slideRight, staggerContainer, viewport, ease } from '@/lib/animation'
 
 const quickNav = [
   { label: 'Commercial',  href: '#commercial'  },
@@ -19,9 +21,16 @@ export default function Footer() {
       style={{ background: 'var(--bg-2)', borderTop: '1px solid var(--border-gold)' }}
     >
       <div className="max-w-site mx-auto px-6 lg:px-12 py-14 lg:py-16">
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 pb-12" style={{ borderBottom: '1px solid var(--border)' }}>
+        <motion.div
+          className="grid grid-cols-1 sm:grid-cols-3 gap-10 pb-12"
+          style={{ borderBottom: '1px solid var(--border)' }}
+          variants={staggerContainer(0.1, 0.05)}
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewport}
+        >
           {/* Brand */}
-          <div>
+          <motion.div variants={fadeUp} transition={{ duration: 0.55, ease }}>
             <Image
               src={images.logo}
               alt={site.developer}
@@ -34,17 +43,27 @@ export default function Footer() {
               {site.developer}<br />
               {site.address}
             </p>
-          </div>
+          </motion.div>
 
           {/* Quick nav */}
-          <div>
+          <motion.div variants={fadeUp} transition={{ duration: 0.55, ease }}>
             <p className="text-f-xs font-semibold uppercase tracking-widest mb-5" style={{ color: 'rgba(200,148,52,0.5)', letterSpacing: '0.12em' }}>
               Navigate
             </p>
             <nav aria-label="Footer navigation">
-              <ul className="space-y-2.5">
+              <motion.ul
+                className="space-y-2.5"
+                variants={staggerContainer(0.05, 0.05)}
+                initial="hidden"
+                whileInView="visible"
+                viewport={viewport}
+              >
                 {quickNav.map((l) => (
-                  <li key={l.href}>
+                  <motion.li
+                    key={l.href}
+                    variants={slideRight}
+                    transition={{ duration: 0.35, ease }}
+                  >
                     <a
                       href={l.href}
                       className="text-f-sm nav-link"
@@ -52,14 +71,14 @@ export default function Footer() {
                     >
                       {l.label}
                     </a>
-                  </li>
+                  </motion.li>
                 ))}
-              </ul>
+              </motion.ul>
             </nav>
-          </div>
+          </motion.div>
 
           {/* Contact */}
-          <div>
+          <motion.div variants={fadeUp} transition={{ duration: 0.55, ease }}>
             <p className="text-f-xs font-semibold uppercase tracking-widest mb-5" style={{ color: 'rgba(200,148,52,0.5)', letterSpacing: '0.12em' }}>
               Contact
             </p>
@@ -79,18 +98,24 @@ export default function Footer() {
             >
               WhatsApp ↗
             </a>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {/* Bottom bar */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 pt-8">
+        <motion.div
+          className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 pt-8"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={viewport}
+          transition={{ duration: 0.6, delay: 0.3 }}
+        >
           <p className="text-f-xs" style={{ color: 'rgba(245,243,239,0.2)' }}>
             © 2026 {site.developer}. All rights reserved.
           </p>
           <p className="text-f-xs italic" style={{ color: 'rgba(245,243,239,0.15)' }}>
             Prices and availability subject to change without notice.
           </p>
-        </div>
+        </motion.div>
       </div>
     </footer>
   )

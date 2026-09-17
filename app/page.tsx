@@ -1,4 +1,5 @@
 import Nav                from '@/components/Nav'
+import ScrollProgress     from '@/components/ui/ScrollProgress'
 import FloorStackNavigator from '@/components/FloorStackNavigator'
 import Hero               from '@/components/sections/Hero'
 import BuildingGlance     from '@/components/sections/BuildingGlance'
@@ -14,6 +15,7 @@ import Footer             from '@/components/sections/Footer'
 export default function Home() {
   return (
     <>
+      <ScrollProgress />
       <Nav />
       <FloorStackNavigator initialDraw />
       <main id="main-content">
