@@ -1,9 +1,10 @@
 'use client'
 
 import { useState, useRef } from 'react'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import SectionHeader from '@/components/ui/SectionHeader'
 import { site } from '@/content'
+import { fadeUp, slideRight, staggerContainer, viewport, ease } from '@/lib/animation'
 
 type FormState = 'idle' | 'submitting' | 'success' | 'error'
 
@@ -12,11 +13,6 @@ const sizeOptions = {
   Shop:      ['350 sqft', '235 sqft'],
   Office:    ['230 sqft'],
   Apartment: ['750 sqft (2 Bed)', '780 sqft (2 Bed)'],
-}
-
-const fade = {
-  hidden:  { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0  },
 }
 
 export default function EnquiryForm() {
@@ -68,11 +64,11 @@ export default function EnquiryForm() {
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-start">
           {/* Left: form */}
           <motion.div
-            variants={fade}
+            variants={fadeUp}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: '-80px' }}
-            transition={{ duration: 0.55 }}
+            viewport={viewport}
+            transition={{ duration: 0.6, ease }}
           >
             <SectionHeader
               eyebrow="Get in touch"
@@ -80,137 +76,160 @@ export default function EnquiryForm() {
               sub="Submit your interest and a member of our sales team will contact you within 24 hours."
             />
 
-            {state === 'success' ? (
-              <div className="p-6" style={{ background: 'rgba(200,148,52,0.08)', border: '1px solid var(--border-gold)', borderRadius: '2px' }}>
-                <p className="font-semibold text-f-base" style={{ color: 'var(--gold-light)' }}>Enquiry received</p>
-                <p className="text-f-sm mt-2" style={{ color: 'var(--slate)' }}>Thank you. Our team will be in touch shortly.</p>
-              </div>
-            ) : (
-              <form ref={formRef} onSubmit={handleSubmit} noValidate className="space-y-4">
-                {/* Name */}
-                <div className="field-wrapper">
-                  <input
-                    type="text"
-                    name="name"
-                    id="name"
-                    placeholder=" "
-                    className="field-input"
-                    aria-describedby={errors.name ? 'name-error' : undefined}
-                    aria-invalid={!!errors.name}
-                  />
-                  <label htmlFor="name" className="field-label">Full name *</label>
-                  {errors.name && <p id="name-error" role="alert" className="text-f-xs mt-1" style={{ color: '#e05c4f' }}>{errors.name}</p>}
-                </div>
-
-                {/* Phone */}
-                <div className="field-wrapper">
-                  <input
-                    type="tel"
-                    name="phone"
-                    id="phone"
-                    placeholder=" "
-                    inputMode="tel"
-                    className="field-input"
-                    aria-describedby={errors.phone ? 'phone-error' : undefined}
-                    aria-invalid={!!errors.phone}
-                  />
-                  <label htmlFor="phone" className="field-label">Phone number *</label>
-                  {errors.phone && <p id="phone-error" role="alert" className="text-f-xs mt-1" style={{ color: '#e05c4f' }}>{errors.phone}</p>}
-                </div>
-
-                {/* Email */}
-                <div className="field-wrapper">
-                  <input
-                    type="email"
-                    name="email"
-                    id="email"
-                    placeholder=" "
-                    className="field-input"
-                    aria-describedby={errors.email ? 'email-error' : undefined}
-                    aria-invalid={!!errors.email}
-                  />
-                  <label htmlFor="email" className="field-label">Email address *</label>
-                  {errors.email && <p id="email-error" role="alert" className="text-f-xs mt-1" style={{ color: '#e05c4f' }}>{errors.email}</p>}
-                </div>
-
-                {/* Interest */}
-                <div>
-                  <label htmlFor="interest" className="text-f-xs font-medium block mb-2" style={{ color: 'var(--slate)' }}>
-                    Interest
-                  </label>
-                  <select
-                    id="interest"
-                    name="interest"
-                    value={interest}
-                    onChange={(e) => setInterest(e.target.value as typeof interestOptions[number])}
-                    className="w-full px-4 py-3 text-f-sm field-input"
-                    style={{ paddingTop: '12px' }}
-                  >
-                    {interestOptions.map((opt) => <option key={opt}>{opt}</option>)}
-                  </select>
-                </div>
-
-                {/* Unit size */}
-                <div>
-                  <label htmlFor="size" className="text-f-xs font-medium block mb-2" style={{ color: 'var(--slate)' }}>
-                    Unit size
-                  </label>
-                  <select
-                    id="size"
-                    name="size"
-                    className="w-full px-4 py-3 text-f-sm field-input"
-                    style={{ paddingTop: '12px' }}
-                  >
-                    {sizeOptions[interest].map((s) => <option key={s}>{s}</option>)}
-                  </select>
-                </div>
-
-                {/* Message */}
-                <div className="field-wrapper">
-                  <textarea
-                    name="message"
-                    id="message"
-                    rows={4}
-                    placeholder=" "
-                    className="field-input resize-none"
-                    style={{ paddingTop: '22px' }}
-                  />
-                  <label htmlFor="message" className="field-label">Message (optional)</label>
-                </div>
-
-                {state === 'error' && (
-                  <p role="alert" className="text-f-xs" style={{ color: '#e05c4f' }}>
-                    Something went wrong. Please try again or call us directly.
-                  </p>
-                )}
-
-                <button
-                  type="submit"
-                  disabled={state === 'submitting'}
-                  className="btn-primary w-full justify-center py-4"
+            <AnimatePresence mode="wait">
+              {state === 'success' ? (
+                <motion.div
+                  key="success"
+                  initial={{ opacity: 0, scale: 0.97 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.35, ease }}
+                  className="p-6"
+                  style={{ background: 'rgba(200,148,52,0.08)', border: '1px solid var(--border-gold)', borderRadius: '2px' }}
                 >
-                  {state === 'submitting' ? 'Sending…' : 'Send enquiry'}
-                </button>
-              </form>
-            )}
+                  <p className="font-semibold text-f-base" style={{ color: 'var(--gold-light)' }}>Enquiry received</p>
+                  <p className="text-f-sm mt-2" style={{ color: 'var(--slate)' }}>Thank you. Our team will be in touch shortly.</p>
+                </motion.div>
+              ) : (
+                <motion.form
+                  key="form"
+                  ref={formRef}
+                  onSubmit={handleSubmit}
+                  noValidate
+                  className="space-y-4"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.25 }}
+                >
+                  {/* Name */}
+                  <div className="field-wrapper">
+                    <input
+                      type="text"
+                      name="name"
+                      id="name"
+                      placeholder=" "
+                      className="field-input"
+                      aria-describedby={errors.name ? 'name-error' : undefined}
+                      aria-invalid={!!errors.name}
+                    />
+                    <label htmlFor="name" className="field-label">Full name *</label>
+                    {errors.name && <p id="name-error" role="alert" className="text-f-xs mt-1" style={{ color: '#e05c4f' }}>{errors.name}</p>}
+                  </div>
+
+                  {/* Phone */}
+                  <div className="field-wrapper">
+                    <input
+                      type="tel"
+                      name="phone"
+                      id="phone"
+                      placeholder=" "
+                      inputMode="tel"
+                      className="field-input"
+                      aria-describedby={errors.phone ? 'phone-error' : undefined}
+                      aria-invalid={!!errors.phone}
+                    />
+                    <label htmlFor="phone" className="field-label">Phone number *</label>
+                    {errors.phone && <p id="phone-error" role="alert" className="text-f-xs mt-1" style={{ color: '#e05c4f' }}>{errors.phone}</p>}
+                  </div>
+
+                  {/* Email */}
+                  <div className="field-wrapper">
+                    <input
+                      type="email"
+                      name="email"
+                      id="email"
+                      placeholder=" "
+                      className="field-input"
+                      aria-describedby={errors.email ? 'email-error' : undefined}
+                      aria-invalid={!!errors.email}
+                    />
+                    <label htmlFor="email" className="field-label">Email address *</label>
+                    {errors.email && <p id="email-error" role="alert" className="text-f-xs mt-1" style={{ color: '#e05c4f' }}>{errors.email}</p>}
+                  </div>
+
+                  {/* Interest */}
+                  <div>
+                    <label htmlFor="interest" className="text-f-xs font-medium block mb-2" style={{ color: 'var(--slate)' }}>
+                      Interest
+                    </label>
+                    <select
+                      id="interest"
+                      name="interest"
+                      value={interest}
+                      onChange={(e) => setInterest(e.target.value as typeof interestOptions[number])}
+                      className="w-full px-4 py-3 text-f-sm field-input"
+                      style={{ paddingTop: '12px' }}
+                    >
+                      {interestOptions.map((opt) => <option key={opt}>{opt}</option>)}
+                    </select>
+                  </div>
+
+                  {/* Unit size */}
+                  <div>
+                    <label htmlFor="size" className="text-f-xs font-medium block mb-2" style={{ color: 'var(--slate)' }}>
+                      Unit size
+                    </label>
+                    <select
+                      id="size"
+                      name="size"
+                      className="w-full px-4 py-3 text-f-sm field-input"
+                      style={{ paddingTop: '12px' }}
+                    >
+                      {sizeOptions[interest].map((s) => <option key={s}>{s}</option>)}
+                    </select>
+                  </div>
+
+                  {/* Message */}
+                  <div className="field-wrapper">
+                    <textarea
+                      name="message"
+                      id="message"
+                      rows={4}
+                      placeholder=" "
+                      className="field-input resize-none"
+                      style={{ paddingTop: '22px' }}
+                    />
+                    <label htmlFor="message" className="field-label">Message (optional)</label>
+                  </div>
+
+                  {state === 'error' && (
+                    <p role="alert" className="text-f-xs" style={{ color: '#e05c4f' }}>
+                      Something went wrong. Please try again or call us directly.
+                    </p>
+                  )}
+
+                  <button
+                    type="submit"
+                    disabled={state === 'submitting'}
+                    className="btn-primary w-full justify-center py-4"
+                  >
+                    {state === 'submitting' ? 'Sending…' : 'Send enquiry'}
+                  </button>
+                </motion.form>
+              )}
+            </AnimatePresence>
           </motion.div>
 
           {/* Right: contact info */}
           <motion.div
-            variants={fade}
+            className="space-y-8 pt-2 lg:pt-20"
+            variants={staggerContainer(0.12, 0.2)}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: '-80px' }}
-            transition={{ duration: 0.55, delay: 0.15 }}
-            className="space-y-8 pt-2 lg:pt-20"
+            viewport={viewport}
           >
-            <div>
+            <motion.div variants={slideRight} transition={{ duration: 0.5, ease }}>
               <p className="eyebrow mb-4">Sales office</p>
               <p className="text-f-base font-medium" style={{ color: 'var(--stone)' }}>{site.developer}</p>
               <p className="text-f-sm mt-2" style={{ color: 'var(--slate)' }}>{site.address}</p>
-            </div>
+            </motion.div>
 
-            <div style={{ borderTop: '1px solid var(--border)', paddingTop: '24px' }}>
+            <motion.div
+              variants={slideRight}
+              transition={{ duration: 0.5, ease }}
+              style={{ borderTop: '1px solid var(--border)', paddingTop: '24px' }}
+            >
               <p className="eyebrow mb-4">Contact</p>
               <a href={site.phoneTel} className="block text-f-md font-display font-semibold mb-2" style={{ color: 'var(--stone)', textDecoration: 'none' }}>
                 {site.phone}
@@ -223,13 +242,17 @@ export default function EnquiryForm() {
               >
                 WhatsApp us
               </a>
-            </div>
+            </motion.div>
 
-            <div style={{ borderTop: '1px solid var(--border)', paddingTop: '24px' }}>
+            <motion.div
+              variants={slideRight}
+              transition={{ duration: 0.5, ease }}
+              style={{ borderTop: '1px solid var(--border)', paddingTop: '24px' }}
+            >
               <p className="eyebrow mb-4">Hours</p>
               <p className="text-f-sm" style={{ color: 'var(--slate)' }}>Mon–Sat, 9:00 AM – 7:00 PM</p>
               <p className="text-f-sm" style={{ color: 'var(--slate)' }}>Sunday, 11:00 AM – 5:00 PM</p>
-            </div>
+            </motion.div>
           </motion.div>
         </div>
       </div>

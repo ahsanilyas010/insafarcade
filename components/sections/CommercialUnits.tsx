@@ -2,8 +2,8 @@
 
 import { motion } from 'framer-motion'
 import SectionHeader from '@/components/ui/SectionHeader'
-import ImagePlaceholder from '@/components/ui/ImagePlaceholder'
-import { commercialUnits, paymentPlan, images } from '@/content'
+import CommercialFloorPlan from '@/components/ui/CommercialFloorPlan'
+import { commercialUnits, paymentPlan } from '@/content'
 
 function fmt(n: number) {
   return n.toLocaleString('en-PK')
@@ -38,24 +38,9 @@ export default function CommercialUnits() {
         </motion.div>
 
         {/* Floor plan */}
-        <motion.div
-          className="mb-12 overflow-hidden"
-          style={{ border: '1px solid var(--border-gold)', borderRadius: '2px' }}
-          variants={fade}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-        >
-          <ImagePlaceholder
-            src={images.planCommercial}
-            alt="First floor commercial layout plan showing shops 01–08 and offices 09–10"
-            width={1200}
-            height={600}
-            className="w-full h-auto"
-            sizes="(max-width: 768px) 100vw, 80vw"
-          />
-        </motion.div>
+        <div className="mb-12 overflow-hidden" style={{ border: '1px solid var(--border-gold)', borderRadius: '2px' }}>
+          <CommercialFloorPlan />
+        </div>
 
         {/* Pricing table */}
         <motion.div
